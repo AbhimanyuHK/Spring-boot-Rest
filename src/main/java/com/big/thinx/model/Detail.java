@@ -5,10 +5,15 @@ package com.big.thinx.model;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * @author abhimanyu_h_k
@@ -27,7 +32,12 @@ public class Detail implements Serializable {
 	private Integer id;
 	private String name;
 	private String dob;
-	private String address;
+
+	@JsonManagedReference
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "address_id")
+	private Address address;
+
 	private String description;
 	private String createdAt;
 
@@ -55,14 +65,6 @@ public class Detail implements Serializable {
 		this.dob = dob;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 	public String getDescription() {
 		return description;
 	}
@@ -81,6 +83,14 @@ public class Detail implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 }

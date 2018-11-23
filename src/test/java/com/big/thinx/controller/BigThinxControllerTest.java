@@ -45,15 +45,29 @@ public class BigThinxControllerTest {
 	@Test
 	public void createTest() throws Exception {
 		when(bigThinxService.createDetail((any(Detail.class)))).thenReturn(new Detail());
-		mvc.perform(post("/create").content("{ \"name\" : \"test\", \"address\" : \"test\"}").contentType(MediaType.APPLICATION_JSON))
-		.andExpect(status().isOk())
-				.andReturn();
+		mvc.perform(
+				post("/create")
+						.content(
+								"{\r\n" + "	\"id\" : 1,\r\n" + "	\"name\" : \"XYZ\",\r\n" + "	\"address\" : {\r\n"
+										+ "		\"addressDetail\" : \"update new address from old.\"\r\n" + "	},\r\n"
+										+ "	\"dob\" : \"2018-10-56\",\r\n" + "	\"description\" : \"Nothing\",\r\n"
+										+ "	\"createdAt\" : \"2018_2_4\"\r\n" + "}")
+						.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andReturn();
 	}
 
 	@Test
 	public void updateTest() throws Exception {
 		when(bigThinxService.updateDetail(any(Detail.class))).thenReturn(new Detail());
-		mvc.perform(put("/update").content("{ \"name\" : \"test\", \"address\" : \"test\"}").contentType(MediaType.APPLICATION_JSON)).andExpect(status().isOk()).andReturn();
+		mvc.perform(
+				put("/update")
+						.content(
+								"{\r\n" + "	\"id\" : 1,\r\n" + "	\"name\" : \"XYZ\",\r\n" + "	\"address\" : {\r\n"
+										+ "		\"addressDetail\" : \"update new address from old.\"\r\n" + "	},\r\n"
+										+ "	\"dob\" : \"2018-10-56\",\r\n" + "	\"description\" : \"Nothing\",\r\n"
+										+ "	\"createdAt\" : \"2018_2_4\"\r\n" + "}")
+						.contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andReturn();
 	}
 
 	@Test

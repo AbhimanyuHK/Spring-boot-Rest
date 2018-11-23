@@ -4,16 +4,15 @@
 package com.big.thinx.service;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -34,12 +33,6 @@ public class BigThinxServiceTest {
 	@Mock
 	private IDetailRepository detailRepository;
 
-	@Before
-	public void setUp() throws Exception {
-
-		MockitoAnnotations.initMocks(this);
-	}
-
 	@Test
 	public void getDetailTest() throws Exception {
 		when(detailRepository.findById(any(Integer.class))).thenReturn(Optional.of(new Detail()));
@@ -56,6 +49,13 @@ public class BigThinxServiceTest {
 	public void getUpdateTest() throws Exception {
 		when(detailRepository.save((any(Detail.class)))).thenReturn(new Detail());
 		bigThinxService.updateDetail(new Detail());
+	}
+
+	@Test
+	public void getDeleteTest() throws Exception {
+		when(detailRepository.findById(any(Integer.class))).thenReturn(Optional.of(new Detail()));
+		doNothing().when(detailRepository).delete(any(Detail.class));
+		bigThinxService.deleteDetail(1);
 	}
 
 }
